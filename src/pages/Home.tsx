@@ -60,7 +60,13 @@ const Home = () => {
     try {
       const movies = await getTrendingMovies();
 
-      setTrendingMovies(movies || []);
+      const trending: TrendingMovie[] = (movies || []).map((movie: any) => ({
+        $id: movie.$id,
+        poster_url: movie.poster_url,
+        title: movie.title,
+      }));
+
+      setTrendingMovies(trending);
     } catch (error) {
       console.error(`Error fetching trending movies: ${error}`);
     }
